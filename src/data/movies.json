@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "title": "The Planet of the Apes",
+        "description": "Monkeys take over and things go cray cray",
+        "rating": 4.5,
+        "year": 2012
+    },
+    {
+        "id": 2,
+        "title": "Zombieland",
+        "description": "Zombies have taken over, and now its up to Mark Zuckaburg to kill them all",
+        "rating": "2.3",
+        "year": 2004
+    },
+    {
+        "id": 3,
+        "title": "Avengers: Endgame",
+        "description": "Half of them gone, what the hell are they gonna do next",
+        "rating": 5.0,
+        "year": 2019
+    },
+    {
+        "id": 4,
+        "title": "The Godfather",
+        "description": "I haven't seen it but I am sure its full of murder",
+        "rating": 3.9,
+        "year": 1988
+    },
+    {
+        "id": 5,
+        "title": "The Exorcist",
+        "description": "Heads are spinning, girl is sinning, devils winning.",
+        "rating": 4.1,
+        "year": 1977
+    }
+]

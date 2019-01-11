@@ -7,7 +7,7 @@
   height: 40vmin;
 }
 
-.App-header {
+body {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -29,4 +29,29 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.page-select{
+  width:33%;
+}
+
+.search-text{
+  width:25%;
+}
+.search-btn{
+  width:8%;
+}
+.filter{
+  width:33%;
+}
+
+.page-item{
+  width:25%;
+  text-align: center;
+}
+.page-item.active-filter .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: green !important;
+  border-color: green;
 }
