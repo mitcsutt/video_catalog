@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import '../styles/App.css';
-import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 
 class Movie extends Component{
     constructor(props){

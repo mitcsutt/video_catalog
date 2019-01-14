@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.css';
-import App from './components/App';
+import Movie from './library/video-catalog/video-catalog';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Movie />, document.getElementById('root'));
