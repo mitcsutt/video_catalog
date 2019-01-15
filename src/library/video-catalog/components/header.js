@@ -7,13 +7,15 @@ const Header = ({
 	searchValue,
     setSearchValue,
 	handleSearch,
-	setPageNumber,
+	currentPage,
+	totalPage,
 	handlePageChange,
 }) => (
     <table className="table">
         <tbody>
             <tr>
-                <td className = "header-row page-select"><Paginate setPageNumber = {setPageNumber} handlePageChanfe = {handlePageChange}/></td>
+                <td className = "header-row page-select">
+					<Paginate currentPage = {currentPage} totalPage = {totalPage} handlePageChange = {handlePageChange}/></td>
                 <td className = "header-row search">
                     <Search searchValue = {searchValue} setSearchValue={setSearchValue} handleSearch={handleSearch} />
                 </td>

@@ -1,50 +1,77 @@
 import React from 'react';
 
-// const Paginate = ({setPageNumber, handlePageChange}) =>(
 
-// 	<nav aria-label="Page navigation">
-// 		<ul className="pagination">
-// 		<li className="page-item disabled">
-// 			<a className="page-link" href="/link" aria-label="Previous">
-// 			<span aria-hidden="true">&laquo;</span>
-// 			<span className="sr-only">Previous</span>
-// 			</a>
-// 		</li>
-// 		<li className="page-item active"><a className="page-link" href="/link">1</a></li>
-// 		<li className="page-item"><a className="page-link" href="/link">2</a></li>
-// 		<li className="page-item">
-// 			<a className="page-link" href="/link" aria-label="Next">
-// 			<span aria-hidden="true">&raquo;</span>
-// 			<span className="sr-only">Next</span>
-// 			</a>
-// 		</li>
-// 		</ul>
-// 	</nav>
-// );
-const ListItem = ({active, number}) =>(
-	<li className={`page-item ${active}`}><a className="page-link" href="/link">{number}</a></li>
-);
+const ListItem = ({active, number, handlePageChange}) =>{
+	console.log(number);
+
+	return(
+		<li className={`page-item ${active}`}><button className="page-link"  onClick = {() => handlePageChange(number)}>{number}</button></li>
+	);
+}
 
 
-const Paginate = ({setPageNumber, handlePageChange}) =>(
+const Pages = ({currentPage, totalPage,handlePageChange}) => {
+	const current = currentPage;
+	const totalNum = totalPage;
+	const min = current - 2, max = current +2;
+	let totalPageArray = [], splitPageArray = [];
+	let pages = [];
+
+	for (let i = 1; i <= totalNum; i++){
+		totalPageArray[i-1] = i;
+	}
+	
+	if(totalNum <= 5){
+		splitPageArray = totalPageArray.slice(0,5);
+	}
+	else if (min < 1){
+		splitPageArray = totalPageArray.slice(0,5);
+	}
+	else if (max > totalNum){
+		splitPageArray = totalPageArray.slice(totalNum-5,totalNum);
+	}	
+	else{
+		splitPageArray = totalPageArray.slice(min-1,max);
+
+	}
+
+	splitPageArray.forEach(function(i){
+		if(i === current){
+			pages.push(<ListItem key = {i} active={"active"} number={i} handlePageChange = {handlePageChange}/>);
+		}
+		else{
+			pages.push(<ListItem key = {i} active={""} number={i} handlePageChange = {handlePageChange}/>);
+		}
+	});
+	return pages;
+}
+
+const Disabled = ({currentPage, totalPage, label, arrow}) => {
+	const current = currentPage;
+	const totalNum = totalPage;
+	let disabled = "";
+	if(current <= 1 && label === "Previous"){
+		disabled = "disabled" 
+	}
+	else if(current >= totalNum && label === "Next"){
+		disabled = "disabled" 
+	}
+	return(
+	<li className= {`page-item ${disabled}`}>
+		<button className="page-link" aria-label={label}>
+		<span aria-hidden="true">{arrow}</span>
+		</button>
+	</li>
+	);	
+}
+
+const Paginate = ({currentPage, totalPage, handlePageChange}) =>(
 
 	<nav aria-label="Page navigation">
 		<ul className="pagination">
-		<li className="page-item disabled">
-			<a className="page-link" href="/link" aria-label="Previous">
-			<span aria-hidden="true">&laquo;</span>
-			<span className="sr-only">Previous</span>
-			</a>
-		</li>
-		<ListItem active={"active"} number={1} />
-		<ListItem active={""} number={2} />
-		<ListItem active={""} number={3} />
-		<li className="page-item">
-			<a className="page-link" href="/link" aria-label="Next">
-			<span aria-hidden="true">&raquo;</span>
-			<span className="sr-only">Next</span>
-			</a>
-		</li>
+		<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Previous" arrow = "&laquo;" />
+		<Pages currentPage = {currentPage} totalPage = {totalPage} handlePageChange= {handlePageChange}/>
+		<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Next" arrow = "&raquo;" />
 		</ul>
 	</nav>
 );
