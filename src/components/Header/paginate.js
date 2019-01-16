@@ -2,8 +2,6 @@ import React from 'react';
 
 
 const ListItem = ({active, number, handlePageChange}) =>{
-	console.log(number);
-
 	return(
 		<li className={`page-item ${active}`}><button className="page-link"  onClick = {() => handlePageChange(number)}>{number}</button></li>
 	);

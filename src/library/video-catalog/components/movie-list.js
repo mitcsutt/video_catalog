@@ -1,37 +1,33 @@
 import React from 'react';
 
-const getLineItems = ({items}) =>{
+const getLineItems = ({movies}) =>{
 
-	return items.map(item => (
+	return movies.map(movie => (
 
-		<tr key = {item.id}>
-			<td style={ { color: 'crimson', fontSize : '20px' } }>{item.id}</td>
-			<td>{item.title}</td>
-			<td>{item.description}</td>
-			<td>{item.rating}</td>
-			<td>{item.year}</td>
-			<td><button className="btn btn-danger" >&times;</button></td>
+		<tr>
+			<td><img src ={movie.Poster} ></img></td>
+			<td>{movie.Title}</td>
+			<td>{movie.Type}</td>
+			<td>{movie.Year}</td>
 		</tr>
   	));
 }
-const Movie = ({items,currentPage}) => {
+const Movie = ({movies,results}) => {
 
 	return (
 		<div className="container">
 			<hr />
-			<h1>Page number is {currentPage}</h1>
+			<h1>Num results is {results}</h1>
 			<table className="table table-bordered table-striped table-hover">
 				<thead>
 					<tr>
-						<th>ID</th>
+						<th>Poster</th>
 						<th>Title</th>
-						<th>Description</th>
-						<th>Rating</th>
+						<th>Type</th>
 						<th>Year</th>
-						<th>Delete the item</th>
 					</tr>
 				</thead>
-			<tbody>{getLineItems({items})}</tbody>
+			<tbody>{getLineItems({movies})}</tbody>
 			</table>
 		</div>
 	);
