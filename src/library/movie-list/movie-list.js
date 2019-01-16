@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import '../../styles/App.css';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
-import Movies from './components/movie-list';
+import Movies from './components/movies';
 import Header from "./components/header";
 import axios from 'axios';
 import * as Constants from '../../actions/constants';
@@ -14,8 +13,9 @@ class App extends Component {
 			API: "5c9259f7",
 			searchValue: "american",
 			currentPage: 1,
-			totalPage: 10,
-			filteredItems: [],
+			totalPage: 0,
+
+			currentFiltered: "",
 
 			status: Constants.MOVIES_LIST_INITIALIZING,
 			movies: [],
@@ -25,41 +25,51 @@ class App extends Component {
 	}  
     render() {
       	return (
-       		<div>
+       		<div className = "container">
 				<Header 
 					//**** Search Bar Props ****/
 					searchValue = {this.state.searchValue}
 					//Gets the input from the search box
 					setSearchValue={(searchValue) => this.setState({searchValue})} 
-					handleSearch={this.searchMovie} 
+					handleSearch={() => {
+						this.setState({currentPage: 1})
+						this.getMovies()
+						
+					}} 
 
 					//**** Pagination Props ****/
 					currentPage = {this.state.currentPage}
 					totalPage = {this.state.totalPage}
-					handlePageChange={(currentPage) => this.setState({currentPage})}
+					handlePageChange={(currentPage) => {
+						console.log(currentPage);
+						this.setState({currentPage: currentPage})
+						this.getMovies()
+					}}
+					results = {this.state.results}
+
+					//**** Filtered Props */
+					currentFiltered = {this.state.currentFiltered}
+					handleFilterChange = {(filter) => {
+						this.setState({
+							currentPage: 1,
+							currentFiltered: filter
+						})
+						this.getMovies();
+					}}
 				
 				/>
-				<Movies movies={this.state.movies} results = {this.state.results}/>
+				<Movies movies={this.state.movies}/>
 
           		<div>{this.state.searchValue}</div>
         	</div>
       	);
     }
 
-    searchMovie = () =>
-    {
-      	console.log(this.state.searchValue);
-	}
-	newPage = () =>
-    {
-		console.log("New Page = " + this.state.page.current);
-	}
-
 	getMovies = () =>{
 		this.setState(
             {
                 status: Constants.MOVIES_FETCH_REQUESTED,
-                error: null
+				error: null,
             },
             () => { // callback on actual setting up of state by react
 				axios.get( "http://www.omdbapi.com/",
@@ -68,6 +78,7 @@ class App extends Component {
 						s: this.state.searchValue,
 						apikey: this.state.API,
 						page: this.state.currentPage,
+						type: this.state.currentFiltered
 					}
 				})
 				.then( response => response.data )
@@ -75,6 +86,7 @@ class App extends Component {
 					status: Constants.MOVIES_FETCH_SUCCESS,
 					movies: movies.Search,
 					results: movies.totalResults,
+					totalPage: Math.ceil(movies.totalResults/10),
 				}))
 				.catch( error => this.setState({
 					status: Constants.MOVIES_FETCH_FAILURE,

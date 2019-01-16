@@ -63,7 +63,7 @@ const Disabled = ({currentPage, totalPage, label, arrow}) => {
 	);	
 }
 
-const Paginate = ({currentPage, totalPage, handlePageChange}) =>(
+const Paginate = ({currentPage, totalPage, handlePageChange, results}) =>(
 
 	<nav aria-label="Page navigation">
 		<ul className="pagination">
@@ -71,6 +71,8 @@ const Paginate = ({currentPage, totalPage, handlePageChange}) =>(
 		<Pages currentPage = {currentPage} totalPage = {totalPage} handlePageChange= {handlePageChange}/>
 		<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Next" arrow = "&raquo;" />
 		</ul>
+		<p>Page {currentPage} of {totalPage} <br></br>
+		Returned {results} results</p>
 	</nav>
 );
 

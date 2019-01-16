@@ -1,23 +1,22 @@
 import React from 'react';
 
 const getLineItems = ({movies}) =>{
-
+	let style = {width: '50px'};
 	return movies.map(movie => (
-
-		<tr>
-			<td><img src ={movie.Poster} ></img></td>
+		
+		<tr key = {movies.imdbID}>
+			<td><img className = "rounded mx-auto d-block" style = {style} src ={movie.Poster} ></img></td>
 			<td>{movie.Title}</td>
 			<td>{movie.Type}</td>
 			<td>{movie.Year}</td>
 		</tr>
   	));
 }
-const Movie = ({movies,results}) => {
+const Movie = ({movies}) => {
 
 	return (
-		<div className="container">
+		<div>
 			<hr />
-			<h1>Num results is {results}</h1>
 			<table className="table table-bordered table-striped table-hover">
 				<thead>
 					<tr>
