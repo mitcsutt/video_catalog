@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.css'
 import Movies from './components/movies';
 import Header from "./components/header";
