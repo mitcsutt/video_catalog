@@ -77,6 +77,8 @@ export const setSearch = (search) => (dispatch) => {
 	});
 };
 export const search = () => (dispatch) => {
+	dispatch(setPage(1));
+	dispatch(setFilter(""));
 	dispatch(fetchMoviesThunk());
 };
 
