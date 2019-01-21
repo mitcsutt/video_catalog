@@ -11,7 +11,7 @@ const Filter = ({filter, setFilter}) =>{
 		}
 	}
 	return(
-
+		//For git test
 		<nav aria-label="Page navigation">
 			<ul className="pagination">
 			<li className={`page-item ${active[0]}`}><button onClick = {() => setFilter("")} className="page-link" href="/index">Anything</button></li>
