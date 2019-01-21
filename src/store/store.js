@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import headerReducer from '../reducers/header';
 import movieReducer from '../reducers/movies';
 import thunk from 'redux-thunk';
@@ -16,12 +16,13 @@ const store = createStore(
 	{
 		header: {
 			currentPage: 1,
+			totalPage: 1,
 			searchValue: "america",
 			filter: "",
 		},
 		movies: {
 			movies: [],
-			status: Constants.MOVIE_LIST_INITIALIZING,
+			status: Constants.MOVIE_INITIALIZING,
 			error: null,
 		}
 	},

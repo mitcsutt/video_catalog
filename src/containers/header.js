@@ -1,18 +1,27 @@
 import Header from '../components/header';
 import {connect} from 'react-redux';
-import { setPage, setSearch, setFilter, initSearch } from '../actions/creators';
+import { setPage, setSearch, setFilter, initSearch, setTotalPage } from '../actions/creators';
 
 const mapStateToProps = ( state ) => ({
-    movies: state.movies
+    header: state.header
 });
 
 const mapDispatchToProps = dispatch => ({
-    initMovies: () => {
-        dispatch( initMovies() );
+    initSearch: () => {
+        dispatch( initSearch() );
     },
-    fetchMoviesThunk: () => {
-        dispatch( fetchMoviesThunk() );
+    setSearch: (searchValue) => {
+        dispatch( setSearch(searchValue) );
+	},
+	setTotalPage: (totalPage) => {
+        dispatch( setTotalPage(totalPage) );
+	},
+	setFilter: (filter) => {
+        dispatch( setFilter(filter) );
+    },
+    setPage: (page) => {
+        dispatch( setPage(page) );
     }
 });
 
-export default connect( mapStateToProps, mapDispatchToProps )( Movies );
+export default connect( mapStateToProps, mapDispatchToProps )( Header );

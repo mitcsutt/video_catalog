@@ -2,7 +2,7 @@ import * as Constants from '../constants/constants';
 import axios from 'axios';
 
 export const initMovieList = () => ({
-    type: Constants.MOVIE_LIST_INITIALIZING
+    type: Constants.MOVIE_INITIALIZING
 });
 
 export const fetchMovieList = () => ({
@@ -22,8 +22,24 @@ export const fetchMovieListFailure = ( error ) => ({
         error: error
     }
 });
+export function fetchMoviesThunk(searchValue, API, currentPage, currentFiltered) {
+    return function( dispatch ) {
+        dispatch( fetchMovieList() );
 
-
+        axios.get( "http://www.omdbapi.com/",
+		{
+			params: {
+				s: searchValue,
+				apikey: API,
+				page: currentPage,
+				type: currentFiltered
+			}
+		})
+            .then( response => response.data )
+            .then( products => dispatch( fetchMovieListSuccess( products ) ) )
+            .catch( error => dispatch( fetchMovieListFailure( error ) ) );
+    };
+}
 export const initSearch = () => ({
 	type: Constants.INIT_SEARCH,
 });
@@ -32,6 +48,12 @@ export const setPage = (page) => ({
 	type: Constants.SET_PAGE,
 	payload: {
 		currentPage: page
+	}
+});
+export const setTotalPage = (totalPage) => ({
+	type: Constants.SET_TOTAL_PAGE,
+	payload: {
+		totalPage: totalPage
 	}
 });
 
@@ -48,4 +70,6 @@ export const setFilter = (filter) => ({
 		filter: filter
 	}
 });
+
+
 

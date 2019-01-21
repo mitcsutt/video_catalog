@@ -1,6 +1,6 @@
 import Movies from '../components/movies';
 import {connect} from 'react-redux';
-import { fetchMoviesThunk, initMovies } from '../actions/creators';
+import { fetchMoviesThunk, initMovieList } from '../actions/creators';
 
 const mapStateToProps = ( state ) => ({
     movies: state.movies
@@ -8,7 +8,7 @@ const mapStateToProps = ( state ) => ({
 
 const mapDispatchToProps = dispatch => ({
     initMovies: () => {
-        dispatch( initMovies() );
+        dispatch( initMovieList() );
     },
     fetchMoviesThunk: () => {
         dispatch( fetchMoviesThunk() );
