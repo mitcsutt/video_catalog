@@ -8,8 +8,6 @@ import Paginate from "./paginate";
 class Header extends Component{
 	constructor( props ) {
         super( props );
-
-        this.props.initSearch();
     }
 
 	render() {

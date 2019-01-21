@@ -1,7 +1,7 @@
 import * as Constants from '../constants/constants';
 import axios from 'axios';
 
-export const initMovieList = () => ({
+export const initMovies = () => ({
     type: Constants.MOVIE_INITIALIZING
 });
 
@@ -9,10 +9,10 @@ export const fetchMovieList = () => ({
     type: Constants.MOVIE_FETCH_REQUESTED
 });
 
-export const fetchMovieListSuccess = ( movie ) => ({
+export const fetchMovieListSuccess = ( movies ) => ({
     type: Constants.MOVIE_FETCH_SUCCESS,
     payload: {
-        movie: movie,
+        movies: movies,
     }
 });
 
@@ -23,7 +23,7 @@ export const fetchMovieListFailure = ( error ) => ({
     }
 });
 export function fetchMoviesThunk(searchValue, API, currentPage, currentFiltered) {
-    return function( dispatch ) {
+    return function( dispatch) {
         dispatch( fetchMovieList() );
 
         axios.get( "http://www.omdbapi.com/",
@@ -36,13 +36,10 @@ export function fetchMoviesThunk(searchValue, API, currentPage, currentFiltered)
 			}
 		})
             .then( response => response.data )
-            .then( products => dispatch( fetchMovieListSuccess( products ) ) )
+            .then( movies => dispatch( fetchMovieListSuccess( movies ) ) )
             .catch( error => dispatch( fetchMovieListFailure( error ) ) );
     };
 }
-export const initSearch = () => ({
-	type: Constants.INIT_SEARCH,
-});
 
 export const setPage = (page) => ({
 	type: Constants.SET_PAGE,

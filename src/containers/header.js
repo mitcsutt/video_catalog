@@ -7,9 +7,7 @@ const mapStateToProps = ( state ) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    initSearch: () => {
-        dispatch( initSearch() );
-    },
+
     setSearch: (searchValue) => {
         dispatch( setSearch(searchValue) );
 	},

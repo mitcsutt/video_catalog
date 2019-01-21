@@ -15,9 +15,6 @@ const headerReducer = (state = {
 	let newState;
 
 	switch(action.type) {
-		case INIT_SEARCH:
-			newState = {...state, currentPage: 1, totalPage: 1, searchValue: "america", filter: 'movies'};
-			break;
 		case SET_PAGE:
 			newState = {...state, currentPage: action.payload.currentPage};
 			break;

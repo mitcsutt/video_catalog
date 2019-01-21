@@ -11,6 +11,7 @@ class App extends Component {
         return (
             <div>
                 <Header />
+				<Movies /> 
                 {/* <Switch>
                     <Route path="/products" component={Movies} exact />
                     <Route path="*" render={() => <Redirect to="/" />} />
