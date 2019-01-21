@@ -3,19 +3,30 @@ import {
 	SET_PAGE, 
 	SET_TOTAL_PAGE,
 	SET_SEARCH, 
-	SET_FILTER
+	SET_FILTER,
+	MOVIE_FETCH_SUCCESS
 } from '../constants/constants';
 
-const headerReducer = (state = {
+const defaultState = {
 	currentPage: 1,
 	totalPage: 1,
 	searchValue: "america",
+	API: '5c9259f7',
 	filter: "",
-	API: "5c9259f7"
-}, action ) => {
+	perPage: 10 // per page should be saved in a reducer in real app
+};
+
+const headerReducer = (state = defaultState, action ) => {
 	let newState;
 
 	switch(action.type) {
+		
+		// can listen for actions from other reducers..
+		case MOVIE_FETCH_SUCCESS:
+			return {
+				...state,
+				totalPage: Math.ceil( action.payload.totalResults / 10)
+			}
 		case SET_PAGE:
 			newState = {...state, currentPage: action.payload.currentPage};
 			break;

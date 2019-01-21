@@ -7,3 +7,4 @@ export const SET_PAGE = 'set_page';
 export const SET_TOTAL_PAGE = 'set_total_page';
 export const SET_SEARCH = 'set_search';
 export const SET_FILTER = 'set_filter';
+export const SEARCH = 'search';

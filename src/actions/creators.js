@@ -9,12 +9,12 @@ export const fetchMovieList = () => ({
     type: Constants.MOVIE_FETCH_REQUESTED
 });
 
-export const fetchMovieListSuccess = ( movies ) => ({
-    type: Constants.MOVIE_FETCH_SUCCESS,
-    payload: {
-        movies: movies,
-    }
-});
+export const fetchMovieListSuccess = ( payload ) => {
+    return { 
+	   	type: Constants.MOVIE_FETCH_SUCCESS,
+	    payload // should push the entire payload IMO here
+	}
+};
 
 export const fetchMovieListFailure = ( error ) => ({
     type: Constants.MOVIE_FETCH_FAILURE,
@@ -23,34 +23,44 @@ export const fetchMovieListFailure = ( error ) => ({
     }
 });
 
-export const fetchMoviesWithCurrentFilters = () => (dispatch, getState) => {
-	const state = getState();
-	const {searchValue, API, currentPage, currentFiltered} = state.header;
-	dispatch(fetchMoviesThunk(searchValue, API, currentPage, currentFiltered));
+
+// call this when ever anything changes
+export function fetchMoviesThunk() {
+    return function( dispatch, getState) {
+        
+    	const state = getState();
+    	const { header } = state;
+    	const { searchValue, currentPage, filter } = header;
+
+        dispatch( fetchMovieList() );
+
+        axios.get( "http://www.omdbapi.com/",
+		{
+			params: {
+				s: searchValue,
+				apikey: '5c9259f7',
+				page: currentPage,
+				type: filter
+			}
+		})
+            .then( response => response.data )
+            .then( movies => dispatch( fetchMovieListSuccess( movies ) ) )
+            .catch( error => dispatch( fetchMovieListFailure( error ) ) );
+    }
 }
 
-export const fetchMoviesThunk = (searchValue, API, currentPage, currentFiltered) => (dispatch) => {
-	dispatch( fetchMovieList() );
-	axios.get( "http://www.omdbapi.com/",
-	{
-		params: {
-			s: searchValue,
-			apikey: API,
-			page: currentPage,
-			type: currentFiltered
-		}
-	})
-		.then( response => response.data )
-		.then( movies => dispatch( fetchMovieListSuccess( movies ) ) )
-		.catch( error => dispatch( fetchMovieListFailure( error ) ) );
+
+export const setPage = (page) => (dispatch) => {
+
+	dispatch({
+		type: Constants.SET_PAGE,
+		payload: {
+			currentPage: page
+	}});
+
+	dispatch(fetchMoviesThunk());
 };
 
-export const setPage = (page) => ({
-	type: Constants.SET_PAGE,
-	payload: {
-		currentPage: page
-	}
-});
 export const setTotalPage = (totalPage) => ({
 	type: Constants.SET_TOTAL_PAGE,
 	payload: {
@@ -58,19 +68,28 @@ export const setTotalPage = (totalPage) => ({
 	}
 });
 
-export const setSearch = (search) => ({
-	type: Constants.SET_SEARCH,
-	payload: {
-		searchValue: search
-	}
-});
+export const setSearch = (search) => (dispatch) => {
+	dispatch({
+		type: Constants.SET_SEARCH,
+		payload: {
+			searchValue: search
+		}
+	});
+};
+export const search = () => (dispatch) => {
+	dispatch(fetchMoviesThunk());
+};
 
-export const setFilter = (filter) => ({
-	type: Constants.SET_FILTER,
-	payload: {
-		filter: filter
-	}
-});
+// can dispatch multiple..
+export const setFilter = (filter) => (dispatch) => {
+	dispatch({
+		type: Constants.SET_FILTER,
+		payload: {
+			filter: filter
+		}
+	});
+	dispatch(fetchMoviesThunk());
+};
 
 
 

@@ -6,7 +6,6 @@ const ListItem = ({active, number, setPage}) =>{
 	);
 }
 
-
 const Pages = ({currentPage, totalPage, setPage}) => {
 	const current = currentPage;
 	const totalNum = totalPage;

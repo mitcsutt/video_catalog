@@ -20,8 +20,7 @@ const movieReducer = (state = {
 			newState = { ...state, status: MOVIE_FETCH_REQUESTED, movies: [], error: null};
 			break;
 		case MOVIE_FETCH_SUCCESS:
-			newState = { ...state, status: MOVIE_FETCH_SUCCESS, movies: action.payload.movies, error: null};
-			break;
+			return { ...state, status: MOVIE_FETCH_SUCCESS, movies: action.payload.Search, error: null}; // should return here rather than setting variables
 		case MOVIE_FETCH_FAILURE:
 			newState = { ...state, status: MOVIE_FETCH_FAILURE, movies: [], error: action.payload.error};
 			break;

@@ -28,6 +28,7 @@ class Header extends Component{
 							<Search 
 								searchValue = {searchValue}
 								setSearch = {this.props.setSearch}
+								search = {this.props.search}
 							/>
 						</td>
 						<td className = "header-row filter">
