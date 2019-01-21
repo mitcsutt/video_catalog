@@ -11,6 +11,7 @@ const headerReducer = (state = {
 	totalPage: 1,
 	searchValue: "america",
 	filter: "",
+	API: "5c9259f7"
 }, action ) => {
 	let newState;
 

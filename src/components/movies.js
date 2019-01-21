@@ -17,7 +17,7 @@ function getLineItems ({movies}){
 class Movies extends Component {
 	constructor( props ) {
 		super( props );
-		this.props.initMovies();
+		props.initMovies();
 	}
 
 	render(){
@@ -71,7 +71,7 @@ class Movies extends Component {
 	}
 
 	componentDidMount() {
-        this.props.fetchMoviesThunk();
+        this.props.fetchMoviesWithCurrentFilters();
     }
 }
 export default Movies;
