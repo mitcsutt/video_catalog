@@ -29,10 +29,8 @@ export function fetchMoviesThunk() {
     return function( dispatch, getState) {
         
     	const state = getState();
-    	const { filter, search, paginate } = state;
-		const { searchValue } = search;
-		const { currentPage } = paginate;
-		const { filterValue } = filter;
+    	const { header } = state;
+    	const { searchValue, currentPage, filter } = header;
 
         dispatch( fetchMovieList() );
 
@@ -42,7 +40,7 @@ export function fetchMoviesThunk() {
 				s: searchValue,
 				apikey: '5c9259f7',
 				page: currentPage,
-				type: filterValue
+				type: filter
 			}
 		})
             .then( response => response.data )
@@ -77,19 +75,16 @@ export const setSearch = (search) => (dispatch) => {
 			searchValue: search
 		}
 	});
-};
-export const handleSearch = () => (dispatch) => {
-	dispatch(setPage(1));
-	dispatch(setFilter(""));
 	dispatch(fetchMoviesThunk());
 };
 
+
 // can dispatch multiple..
-export const setFilter = (filterValue) => (dispatch) => {
+export const setFilter = (filter) => (dispatch) => {
 	dispatch({
 		type: Constants.SET_FILTER,
 		payload: {
-			filterValue: filterValue
+			filter: filter
 		}
 	});
 	dispatch(fetchMoviesThunk());

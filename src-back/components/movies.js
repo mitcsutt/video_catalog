@@ -27,7 +27,6 @@ class Movies extends Component {
 
 	render() {
 
-		console.log(this.props);
 		let el; // could have scoping issues by using let
 		const { status, movies, error } = this.props;
 		switch( status ) {

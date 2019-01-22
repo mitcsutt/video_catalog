@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Header from '../components/header'; 
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Header from '../containers/header'; 
 import Movies from '../containers/movies'; 
 import '../../node_modules/bootstrap/dist/css/bootstrap.css'
 
@@ -11,6 +12,10 @@ class App extends Component {
             <div>
                 <Header />
 				<Movies /> 
+                {/* <Switch>
+                    <Route path="/products" component={Movies} exact />
+                    <Route path="*" render={() => <Redirect to="/" />} />
+                </Switch> */}
             </div>
         );
     }

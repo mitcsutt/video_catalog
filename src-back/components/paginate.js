@@ -1,14 +1,12 @@
 import React from 'react';
 
-
-const ListItem = ({active, number, handlePageChange}) =>{
+const ListItem = ({active, number, setPage}) =>{
 	return(
-		<li className={`page-item ${active}`}><button className="page-link"  onClick = {() => handlePageChange(number)}>{number}</button></li>
+		<li className={`page-item ${active}`}><button className="page-link"  onClick = {() => setPage(number)}>{number}</button></li>
 	);
 }
 
-
-const Pages = ({currentPage, totalPage,handlePageChange}) => {
+const Pages = ({currentPage, totalPage, setPage}) => {
 	const current = currentPage;
 	const totalNum = totalPage;
 	const min = current - 2, max = current +2;
@@ -35,10 +33,10 @@ const Pages = ({currentPage, totalPage,handlePageChange}) => {
 
 	splitPageArray.forEach(function(i){
 		if(i === current){
-			pages.push(<ListItem key = {i} active={"active"} number={i} handlePageChange = {handlePageChange}/>);
+			pages.push(<ListItem key = {i} active={"active"} number={i} setPage = {setPage}/>);
 		}
 		else{
-			pages.push(<ListItem key = {i} active={""} number={i} handlePageChange = {handlePageChange}/>);
+			pages.push(<ListItem key = {i} active={""} number={i} setPage = {setPage}/>);
 		}
 	});
 	return pages;
@@ -63,17 +61,20 @@ const Disabled = ({currentPage, totalPage, label, arrow}) => {
 	);	
 }
 
-const Paginate = ({currentPage, totalPage, handlePageChange, results}) =>(
+const Paginate = ({currentPage, setPage, totalPage}) =>{
+	console.log("current page = " + currentPage + "totalPage = " + totalPage);
+	return(
+		<nav aria-label="Page navigation">
+			<ul className="pagination">
+			<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Previous" arrow = "&laquo;" />
+			<Pages currentPage = {currentPage} totalPage = {totalPage} setPage= {setPage}/>
+			<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Next" arrow = "&raquo;" />
+			</ul>
+			{/* <p>Page {currentPage} of {totalPage} <br></br>
+			Returned {results} results</p> */}
+		</nav>
+	);
+};
 
-	<nav aria-label="Page navigation">
-		<ul className="pagination">
-		<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Previous" arrow = "&laquo;" />
-		<Pages currentPage = {currentPage} totalPage = {totalPage} handlePageChange= {handlePageChange}/>
-		<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Next" arrow = "&raquo;" />
-		</ul>
-		<p>Page {currentPage} of {totalPage} <br></br>
-		Returned {results} results</p>
-	</nav>
-);
 
 export default Paginate;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 const ListItem = ({active, number, setPage}) =>{
 	return(
@@ -61,20 +61,29 @@ const Disabled = ({currentPage, totalPage, label, arrow}) => {
 	);	
 }
 
-const Paginate = ({currentPage, setPage, totalPage}) =>{
-	console.log("current page = " + currentPage + "totalPage = " + totalPage);
-	return(
-		<nav aria-label="Page navigation">
-			<ul className="pagination">
-			<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Previous" arrow = "&laquo;" />
-			<Pages currentPage = {currentPage} totalPage = {totalPage} setPage= {setPage}/>
-			<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Next" arrow = "&raquo;" />
-			</ul>
-			{/* <p>Page {currentPage} of {totalPage} <br></br>
-			Returned {results} results</p> */}
-		</nav>
-	);
-};
+class Paginate extends Component {
+	static defaultProps = {
+		currentPage: 1,
+		totalPage: 1,
+		perPage: 10
+	}
+
+	render(){
+		const {currentPage, totalPage, setPage} = this.props;
+		console.log(this.props);
+		return(
+			<nav aria-label="Page navigation">
+				<ul className="pagination">
+				<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Previous" arrow = "&laquo;" />
+				<Pages currentPage = {currentPage} totalPage = {totalPage} setPage= {setPage}/>
+				<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Next" arrow = "&raquo;" />
+				</ul>
+				{/* <p>Page {currentPage} of {totalPage} <br></br>
+				Returned {results} results</p> */}
+			</nav>
+		);
+	}
+}
 
 
 export default Paginate;

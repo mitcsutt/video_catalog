@@ -1,22 +1,16 @@
 import {
-	INIT_SEARCH, 
 	SET_PAGE, 
 	SET_TOTAL_PAGE,
-	SET_SEARCH, 
-	SET_FILTER,
 	MOVIE_FETCH_SUCCESS
 } from '../constants/constants';
 
 const defaultState = {
 	currentPage: 1,
 	totalPage: 1,
-	searchValue: "america",
-	API: '5c9259f7',
-	filter: "",
-	perPage: 10 // per page should be saved in a reducer in real app
+	perPage: 10
 };
 
-const headerReducer = (state = defaultState, action ) => {
+const paginateReducer = (state = defaultState, action ) => {
 	let newState;
 
 	switch(action.type) {
@@ -33,16 +27,10 @@ const headerReducer = (state = defaultState, action ) => {
 		case SET_TOTAL_PAGE:
 			newState = {...state, totalPage: action.payload.totalPage};
 			break;
-		case SET_SEARCH:
-			newState = {...state, searchValue: action.payload.searchValue};
-			break;
-		case SET_FILTER:
-			newState = {...state, filter: action.payload.filter};
-			break;
 		default:
 			newState = state;
 	}
 	return newState;
 }
 
-export default headerReducer;
+export default paginateReducer;
