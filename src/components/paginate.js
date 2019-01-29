@@ -69,7 +69,7 @@ class Paginate extends Component {
 	}
 
 	render(){
-		const {currentPage, totalPage, setPage} = this.props;
+		const {currentPage, totalPage, setPage, totalResults} = this.props;
 		return(
 			<nav aria-label="Page navigation">
 				<ul className="pagination">
@@ -77,8 +77,8 @@ class Paginate extends Component {
 				<Pages currentPage = {currentPage} totalPage = {totalPage} setPage= {setPage}/>
 				<Disabled  currentPage = {currentPage} totalPage = {totalPage} label = "Next" arrow = "&raquo;" />
 				</ul>
-				{/* <p>Page {currentPage} of {totalPage} <br></br>
-				Returned {results} results</p> */}
+				<p>Page {currentPage} of {totalPage} <br></br>
+				Returned {totalResults} results</p>
 			</nav>
 		);
 	}

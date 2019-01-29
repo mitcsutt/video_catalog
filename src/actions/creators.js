@@ -10,9 +10,9 @@ export const fetchMovieList = () => ({
 });
 
 export const fetchMovieListSuccess = ( payload ) => ({
- 
-	   	type: Constants.MOVIE_FETCH_SUCCESS,
-	    payload // should push the entire payload IMO here
+
+	type: Constants.MOVIE_FETCH_SUCCESS,
+	payload // should push the entire payload IMO here
 	
 });
 

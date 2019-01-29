@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import queryString from 'query-string';
 
 class Filter extends Component{
+	
 	static defaultProps = {
 		filterValue: ""
 	}

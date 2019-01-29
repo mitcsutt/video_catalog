@@ -1,7 +1,8 @@
 import {
 	SET_PAGE, 
 	SET_TOTAL_PAGE,
-	MOVIE_FETCH_SUCCESS
+	MOVIE_FETCH_SUCCESS,
+	MOVIE_FETCH_NO_RESULTS
 } from '../constants/constants';
 
 const defaultState = {
@@ -29,6 +30,12 @@ const paginateReducer = (state = defaultState, action ) => {
 		case SET_TOTAL_PAGE:
 			newState = {...state, totalPage: action.payload.totalPage};
 			break;
+		case MOVIE_FETCH_NO_RESULTS:
+		return {
+			...state,
+			totalResults: 0,
+			totalPage: 0
+		}
 		default:
 			newState = state;
 	}
